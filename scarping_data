@@ -1,0 +1,30 @@
+import requests
+from bs4 import BeautifulSoup
+
+# URL of the Election Commission of India results page
+url = "https://results.eci.gov.in"
+
+# Make a request to the website
+response = requests.get(url)
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Find the relevant data
+# This is an example, and you will need to inspect the website to find the correct tags and structure
+election_data = []
+
+# Example of scraping the data (this will vary based on the actual structure of the website)
+for row in soup.find_all('tr'):
+    columns = row.find_all('td')
+    if columns:
+        election_data.append({
+            'constituency': columns[0].text.strip(),
+            'candidate': columns[1].text.strip(),
+            'party': columns[2].text.strip(),
+            'votes': int(columns[3].text.strip().replace(',', ''))
+        })
+
+# Save the data to a file for analysis
+import pandas as pd
+
+df = pd.DataFrame(election_data)
+df.to_csv('election_results.csv', index=False)
