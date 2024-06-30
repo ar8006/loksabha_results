@@ -1,0 +1,29 @@
+import pandas as pd
+
+# Load the data
+df = pd.read_csv('election_results.csv')
+
+# Example analysis
+# 1. Total number of votes
+total_votes = df['votes'].sum()
+
+# 2. Winning party
+winning_party = df.groupby('party')['votes'].sum().idxmax()
+
+# 3. Voter turnout (assuming you have voter data)
+# voter_turnout = ...
+
+# 4. Margin of victory analysis
+# margin_of_victory = ...
+
+# And so on...
+
+# Print or save the insights
+print(f"Total votes: {total_votes}")
+print(f"Winning party: {winning_party}")
+
+# Save insights to a file
+with open('insights.txt', 'w') as f:
+    f.write(f"Total votes: {total_votes}\n")
+    f.write(f"Winning party: {winning_party}\n")
+    # Add more insights as needed
